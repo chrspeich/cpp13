@@ -11,3 +11,9 @@
 *.lai
 *.la
 *.a
+
+CMakeFiles/
+MakeFile
+CMakeCache.txt
+adventure/adventure
+cmake_install.cmake
