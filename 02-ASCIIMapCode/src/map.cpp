@@ -5,6 +5,7 @@
 const int WHITE_NOISE_SIZE = 16;
 const int MAP_SIZE_Y = 25;
 const int MAP_SIZE_X = 80;
+int MOVE=1;
 
 /// \brief A non changing 1D helper "texture"
 /// \details This array is filled by the createSomeMap method.
@@ -44,14 +45,15 @@ static void fillColumn( char* destination, unsigned int mapXCoordinate )
 char** createSomeMap()
 {
 	for( int i=0; i<WHITE_NOISE_SIZE; ++i )
-		whiteNoise[i] = rand()*255/RAND_MAX;
+		// BUGFIX use the standard way for rand numbers in a range
+		whiteNoise[i] = rand() % 255;
 
-	char** map = new char*[80 * MAP_SIZE_Y];
+	char** map = new char*[MAP_SIZE_X];
 	// Create and fill the map
 	for( int x=0; x<80; ++x )
 	{
 		map[x] = new char[MAP_SIZE_Y];
-		fillColumn( *map+x, x );
+		fillColumn(map[x], x);
 	}
 	return map;
 }
@@ -63,9 +65,9 @@ void drawMap( char** map )
 {
 	for( int y=0; y<MAP_SIZE_Y; ++y )
 	{
-		for( int x=0; x<60; ++x )
+		for( int x=0; x<MAP_SIZE_X; ++x )
 		{
-			std::printf( "%c", ASCII_ART[ map[y][x] ] );
+			std::printf( "%c", ASCII_ART[ static_cast<int>(map[x][y]) ] );
 		}
 		std::cout << '\n';
 	}
@@ -75,4 +77,23 @@ void drawMap( char** map )
 ///
 void moveMap( char** map )
 {
+	char* reuse = map[0];
+
+	for (int x = 0; x < MAP_SIZE_X - 1; x++) {
+		map[x] = map[x + 1];
+	}
+
+	// Move white noise
+	memmove(whiteNoise, whiteNoise + 1, WHITE_NOISE_SIZE - 1);
+	whiteNoise[WHITE_NOISE_SIZE - 1] = rand() % 255;
+	fillColumn(reuse, MAP_SIZE_X-1);
+	map[MAP_SIZE_X-1] = reuse;
+}
+
+void freeMap( char** map )
+{
+	for(int x = 0; x < MAP_SIZE_X; x++) {
+		delete[] map[x];
+	}
+	delete[] map;
 }
