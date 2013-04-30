@@ -17,3 +17,5 @@ MakeFile
 CMakeCache.txt
 adventure/adventure
 cmake_install.cmake
+BuggyGame
+BitArray
