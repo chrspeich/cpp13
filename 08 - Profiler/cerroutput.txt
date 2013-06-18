@@ -1,0 +1,8 @@
+Your clock has 1000000000 ticks per second
+
+Consumed time in    heavyWork2()   [/Users/christian/Studium/cpp13/08 - Profiler/demo.cpp] :
+    2.00889 ms    [2.00889 ms]
+Consumed time in    heavyWork1()   [/Users/christian/Studium/cpp13/08 - Profiler/demo.cpp] :
+    7.50146 ms    [7.50146 ms]
+Consumed time in    main()   [/Users/christian/Studium/cpp13/08 - Profiler/demo.cpp] :
+    13.7972 ms    [4.28689 ms]
