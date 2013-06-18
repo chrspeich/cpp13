@@ -22,10 +22,7 @@ namespace Prof {
 
 		// Now add the time we used to the parents time
 		if (!m_TimeStack.empty()) {
-			Ticks t_parent = m_TimeStack.top();
-			t_parent += functionTime;
-			m_TimeStack.pop();
-			m_TimeStack.push(t_parent);
+			m_TimeStack.top() += functionTime;
 		}
 
 		return t;
